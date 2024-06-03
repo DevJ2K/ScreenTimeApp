@@ -6,8 +6,23 @@
 	<dict>
 		<key>ScreenTimeApp.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>E4222DE82C0DBB45002FE47B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E4FC99232C0E1532003F6328</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
