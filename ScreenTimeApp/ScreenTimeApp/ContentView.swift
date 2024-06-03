@@ -10,17 +10,43 @@ import SwiftUI
 struct ContentView: View {
     @State private var selectedMode = "immediate"
     @State private var appsToLock = "0"
-    @State private var strictMode = false
-    @State private var immediateDuration = Date()
     
-    @State private var hours: Int = 0
-    @State private var minutes: Int = 5
+    // Variable du mode strict
+    @State private var strictMode = false
+    
+    // La durée lorsqu'on sélectionne le mode immédiat | Par défaut 0 hrs et 5 mns
+    @State private var immediateHours: Int = 0
+    @State private var immediateMinutes: Int = 5
+    @State private var isImmediateSheetOpened = false
+    
+    // Début et fin lorsqu'on sélectionne le mode programmé | Par défaut Début &&
+    @State private var programmedStart: Date = {
+        var components = DateComponents()
+        components.hour = 9
+        components.minute = 0
+        return Calendar.current.date(from: components) ?? Date()
+    }()
+    
+    @State private var programmedEnd: Date = {
+        var components = DateComponents()
+        components.hour = 17
+        components.minute = 0
+        return Calendar.current.date(from: components) ?? Date()
+    }()
     
     @Environment (\.colorScheme) private var colorScheme
     
     init() {
         UIDatePicker.appearance().minuteInterval = 5
     }
+    
+    func getStartText() -> String {
+        if (selectedMode == "programmed") {
+            return ("Programmer")
+        }
+        return ("Démarrer")
+    }
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -67,38 +93,38 @@ struct ContentView: View {
                         .pickerStyle(.segmented)
                         
                         if (selectedMode == "immediate") {
-                            HStack {
-                                Picker("hours", selection: $hours) {
-                                    ForEach(0..<24, id: \.self) { i in
-//                                        HStack {
-//                                            Spacer()
-                                            Text("\(i)").tag(i)
-                                                .multilineTextAlignment(.trailing)
-//                                        }
-                                    }
+                            Button(action: {
+                                isImmediateSheetOpened = true
+                            }, label: {
+                                HStack {
+                                    Text("Durée")
+                                    Spacer()
+                                    Text("\(immediateHours)h \(immediateMinutes)m")
+                                        .foregroundStyle(.secondary)
+                                    Image(systemName: "chevron.right")
+                                        .foregroundStyle(.secondary)
+                                        .font(.caption)
+                                        .bold()
                                 }
-                                .pickerStyle(WheelPickerStyle())
-                                .labelsHidden()
-                                Text("hrs")
-                                    .bold()
-                                Picker("minutes", selection: $minutes) {
-                                    ForEach(stride(from: 0, to: 60, by: 5).map({$0}), id: \.self) { i in
-                                        Text("\(i)").tag(i)
-                                    }
-                                }
-                                .pickerStyle(WheelPickerStyle())
-                                Text("mns")
-                                    .bold()
+                                .foregroundStyle(colorScheme == .dark ? .white : .black)
+                            })
+                            .sheet(isPresented: $isImmediateSheetOpened) {
+                                TimePickerView(selectedHours: $immediateHours, selectedMinutes: $immediateMinutes, isImmediateSheetOpened: $isImmediateSheetOpened)
+                                    .presentationDetents([.medium])
+                                    .presentationDragIndicator(.visible)
+//                                    .interactiveDismissDisabled()
+                                
                             }
-                            
-//                            DatePicker(selection: $immediateDuration, displayedComponents: .hourAndMinute) {
-//                                Text("Duration")
-//                            }
                         } else if (selectedMode == "programmed") {
-                            Text("Programmed")
-                        } else if (selectedMode == "continuous") {
-                            Text("Continuous")
-                        }
+                            DatePicker(selection: $programmedStart, displayedComponents: .hourAndMinute) {
+                                Text("Début")
+                            }
+                            .padding(.vertical, 4)
+                            DatePicker(selection: $programmedEnd, displayedComponents: .hourAndMinute) {
+                                Text("Fin")
+                            }
+                            .padding(.vertical, 4)
+                        } else if (selectedMode == "continuous") {}
                     } header: {
                         Text("Horaire")
                             .foregroundStyle(colorScheme == .dark ? .white : .black)
@@ -110,7 +136,7 @@ struct ContentView: View {
                 Button {
                     print("Start !")
                 } label: {
-                    Text("Démarrer")
+                    Text(getStartText())
                         .foregroundStyle(colorScheme == .dark ? .black : .white)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 18)

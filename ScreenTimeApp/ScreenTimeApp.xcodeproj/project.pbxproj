@@ -11,6 +11,7 @@
 		E4222DEF2C0DBB45002FE47B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4222DEE2C0DBB45002FE47B /* ContentView.swift */; };
 		E4222DF12C0DBB47002FE47B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4222DF02C0DBB47002FE47B /* Assets.xcassets */; };
 		E4222DF42C0DBB47002FE47B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4222DF32C0DBB47002FE47B /* Preview Assets.xcassets */; };
+		E4222DFB2C0DFF95002FE47B /* TimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4222DFA2C0DFF95002FE47B /* TimePickerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		E4222DEE2C0DBB45002FE47B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E4222DF02C0DBB47002FE47B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E4222DF32C0DBB47002FE47B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E4222DFA2C0DFF95002FE47B /* TimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 				E4222DEE2C0DBB45002FE47B /* ContentView.swift */,
 				E4222DF02C0DBB47002FE47B /* Assets.xcassets */,
 				E4222DF22C0DBB47002FE47B /* Preview Content */,
+				E4222DFA2C0DFF95002FE47B /* TimePickerView.swift */,
 			);
 			path = ScreenTimeApp;
 			sourceTree = "<group>";
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4222DEF2C0DBB45002FE47B /* ContentView.swift in Sources */,
+				E4222DFB2C0DFF95002FE47B /* TimePickerView.swift in Sources */,
 				E4222DED2C0DBB45002FE47B /* ScreenTimeAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
