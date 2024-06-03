@@ -106,6 +106,7 @@ struct ContentView: View {
                                         .font(.caption)
                                         .bold()
                                 }
+                                .padding(.vertical, 12)
                                 .foregroundStyle(colorScheme == .dark ? .white : .black)
                             })
                             .sheet(isPresented: $isImmediateSheetOpened) {

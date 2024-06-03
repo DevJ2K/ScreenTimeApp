@@ -40,6 +40,14 @@ struct TimePickerView: View {
                             .multilineTextAlignment(.trailing)
                     }
                 }
+                .onChange(of: tempSelectedHours) { newValue in
+//                    print("\(newValue) | \(tempSelectedMinutes)")
+                    if (newValue == 0 && tempSelectedMinutes == 0) {
+                        withAnimation(.easeInOut(duration: 0.1)) {
+                            tempSelectedMinutes = 5
+                        }
+                    }
+                }
                 .pickerStyle(WheelPickerStyle())
                 .labelsHidden()
                 Text("hrs")
@@ -47,6 +55,14 @@ struct TimePickerView: View {
                 Picker("minutes", selection: $tempSelectedMinutes) {
                     ForEach(stride(from: 0, to: 60, by: 5).map({$0}), id: \.self) { i in
                         Text("\(i)").tag(i)
+                    }
+                }
+                .onChange(of: tempSelectedMinutes) { newValue in
+//                    print("\(newValue) | \(tempSelectedMinutes)")
+                    if (tempSelectedHours == 0 && newValue == 0) {
+                        withAnimation(.easeInOut(duration: 0.1)) {
+                            tempSelectedMinutes = 5
+                        }
                     }
                 }
                 .pickerStyle(WheelPickerStyle())
@@ -92,7 +108,7 @@ struct TimePickerView: View {
 #Preview {
     VStack {
         @State var hour = 12
-        @State var minute = 12
+        @State var minute = 5
         @State var isPresented = true
         TimePickerView(selectedHours: $hour, selectedMinutes: $minute, isImmediateSheetOpened: $isPresented)
     }
