@@ -12,15 +12,20 @@ struct ContentView: View {
     let center = AuthorizationCenter.shared
     @State private var acceptedScreenTimeAPI = false
     
-     func checkAuthorizationStatus() {
-            Task {
+    func checkAuthorizationStatus() {
+        Task {
+            do {
+                try await center.requestAuthorization(for: .individual)
                 let status = center.authorizationStatus
-                print( status.description )
-//                if status == .authorized {
-//                    acceptedScreenTimeAPI = true
-//                }
+                print(status)
+                if status == .approved {
+                    acceptedScreenTimeAPI = true
+                }
+            } catch {
+                print("Failed to enroll with error: \(error)")
             }
         }
+    }
     
     var body: some View {
         Group {
@@ -32,14 +37,7 @@ struct ContentView: View {
                     Text("Merci d'accepter l'API ScreenTime pour continuer.")
                         .multilineTextAlignment(.center)
                     Button(action: {
-                        Task {
-                            do {
-                                try await center.requestAuthorization(for: .individual)
-                                acceptedScreenTimeAPI = true
-                            } catch {
-                                print("Failed to enroll Aniyah with error: \(error)")
-                            }
-                        }
+                        checkAuthorizationStatus()
                     }, label: {
                         Text("Accepter")
                     })
@@ -47,8 +45,8 @@ struct ContentView: View {
             }
         }
         .onAppear {
-                    checkAuthorizationStatus()
-                }
+            checkAuthorizationStatus()
+        }
     }
 }
 

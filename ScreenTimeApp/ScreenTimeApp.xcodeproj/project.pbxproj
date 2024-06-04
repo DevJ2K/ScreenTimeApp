@@ -13,6 +13,7 @@
 		E4222DF42C0DBB47002FE47B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4222DF32C0DBB47002FE47B /* Preview Assets.xcassets */; };
 		E4222DFB2C0DFF95002FE47B /* TimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4222DFA2C0DFF95002FE47B /* TimePickerView.swift */; };
 		E4222DFD2C0E0B94002FE47B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4222DFC2C0E0B94002FE47B /* MainView.swift */; };
+		E46CC6842C0F0DD300682A50 /* MyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46CC6832C0F0DD300682A50 /* MyModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,6 +38,7 @@
 		E4222DFA2C0DFF95002FE47B /* TimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerView.swift; sourceTree = "<group>"; };
 		E4222DFC2C0E0B94002FE47B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		E46CC6822C0F029900682A50 /* ScreenTimeApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScreenTimeApp.entitlements; sourceTree = "<group>"; };
+		E46CC6832C0F0DD300682A50 /* MyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyModel.swift; sourceTree = "<group>"; };
 		E4FC99262C0E1532003F6328 /* TotalActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalActivity.swift; sourceTree = "<group>"; };
 		E4FC99282C0E1532003F6328 /* TotalActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalActivityReport.swift; sourceTree = "<group>"; };
 		E4FC992A2C0E1532003F6328 /* TotalActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalActivityView.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				E4222DF22C0DBB47002FE47B /* Preview Content */,
 				E4222DFA2C0DFF95002FE47B /* TimePickerView.swift */,
 				E4222DFC2C0E0B94002FE47B /* MainView.swift */,
+				E46CC6832C0F0DD300682A50 /* MyModel.swift */,
 			);
 			path = ScreenTimeApp;
 			sourceTree = "<group>";
@@ -179,6 +182,7 @@
 			files = (
 				E4222DEF2C0DBB45002FE47B /* ContentView.swift in Sources */,
 				E4222DFD2C0E0B94002FE47B /* MainView.swift in Sources */,
+				E46CC6842C0F0DD300682A50 /* MyModel.swift in Sources */,
 				E4222DFB2C0DFF95002FE47B /* TimePickerView.swift in Sources */,
 				E4222DED2C0DBB45002FE47B /* ScreenTimeAppApp.swift in Sources */,
 			);

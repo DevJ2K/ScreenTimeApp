@@ -11,6 +11,8 @@ struct MainView: View {
     @State private var selectedMode = "immediate"
     @State private var appsToLock = "0"
     
+    @State private var isImmediateRunning = false
+    
     // Variable du mode strict
     @State private var strictMode = false
     
@@ -36,6 +38,10 @@ struct MainView: View {
     
     @Environment (\.colorScheme) private var colorScheme
     
+    @StateObject var model = MyModel.shared
+    
+    @State private var appSelectionModal = false
+
     init() {
         UIDatePicker.appearance().minuteInterval = 5
     }
@@ -53,13 +59,23 @@ struct MainView: View {
                 
                 List {
                     Section {
-                        Picker(selection: $appsToLock) {
-                            Text("Empty").tag("0")
-                            Text("Empty").tag("1")
-                        } label: {
-                            Text("Apps & Sites web")
-                        }
-                        .pickerStyle(.navigationLink)
+                        Button(action: {
+                            appSelectionModal = true
+                        }, label: {
+                            HStack {
+                                Text("Apps & Sites web")
+                                Spacer()
+    //                            Text("\(immediateHours)h \(immediateMinutes)m")
+    //                                .foregroundStyle(.secondary)
+                                Image(systemName: "chevron.right")
+                                    .foregroundStyle(.secondary)
+                                    .font(.caption)
+                                    .bold()
+                            }
+    //                        .padding(.vertical, 12)
+                            .foregroundStyle(colorScheme == .dark ? .white : .black)
+                        })
+                        .familyActivityPicker(isPresented: $appSelectionModal, selection: $model.selectionToDiscourage)
                         Toggle(isOn: $strictMode, label: {
                             HStack {
                                 Text("Mode Strict")
@@ -135,6 +151,15 @@ struct MainView: View {
                 .scrollContentBackground(.hidden)
                 .navigationTitle("ScreenTimeApp")
                 Button {
+                    if (selectedMode == "immediate") {
+                        if (isImmediateRunning) {
+                            model.stopMonitoring()
+                            isImmediateRunning = false
+                        } else {
+                            model.initiateMonitoring()
+                            isImmediateRunning = true
+                        }
+                    }
                     print("Start !")
                 } label: {
                     Text(getStartText())
