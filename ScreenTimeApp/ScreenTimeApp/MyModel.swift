@@ -10,7 +10,6 @@ import FamilyControls
 import DeviceActivity
 import ManagedSettings
 
-
 class ScreenTimeModel: ObservableObject {
     static let shared = ScreenTimeModel()
     let store = ManagedSettingsStore()
@@ -150,6 +149,23 @@ class ScreenTimeModel: ObservableObject {
 //    }
 //}
 
+
+class MyMonitorExtension: DeviceActivityMonitor {
+    let store = ManagedSettingsStore()
+    
+    
+    // You can use the `store` property to shield apps when an interval starts, ends, or meets a threshold.
+    override func intervalDidStart(for activity: DeviceActivityName) {
+        super.intervalDidStart(for: activity)
+        
+        
+        // Shield selected applications.
+        let model = ScreenTimeModel.shared
+        let applications = model.activitySelection.applications as Set<Application>
+        store.shield.applications = applications.isEmpty ? nil : applications
+    }
+}
+    
 
 let schedule = DeviceActivitySchedule(
     intervalStart: DateComponents(hour: 0, minute: 0, second: 0), intervalEnd: DateComponents(hour: 23, minute: 59), repeats: true, warningTime: nil
