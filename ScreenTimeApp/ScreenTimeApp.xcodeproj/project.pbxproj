@@ -36,6 +36,7 @@
 		E4222DF32C0DBB47002FE47B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E4222DFA2C0DFF95002FE47B /* TimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerView.swift; sourceTree = "<group>"; };
 		E4222DFC2C0E0B94002FE47B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		E46CC6822C0F029900682A50 /* ScreenTimeApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScreenTimeApp.entitlements; sourceTree = "<group>"; };
 		E4FC99262C0E1532003F6328 /* TotalActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalActivity.swift; sourceTree = "<group>"; };
 		E4FC99282C0E1532003F6328 /* TotalActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalActivityReport.swift; sourceTree = "<group>"; };
 		E4FC992A2C0E1532003F6328 /* TotalActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalActivityView.swift; sourceTree = "<group>"; };
@@ -74,6 +75,7 @@
 		E4222DEB2C0DBB45002FE47B /* ScreenTimeApp */ = {
 			isa = PBXGroup;
 			children = (
+				E46CC6822C0F029900682A50 /* ScreenTimeApp.entitlements */,
 				E4222DEC2C0DBB45002FE47B /* ScreenTimeAppApp.swift */,
 				E4222DEE2C0DBB45002FE47B /* ContentView.swift */,
 				E4222DF02C0DBB47002FE47B /* Assets.xcassets */,
@@ -310,6 +312,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ScreenTimeApp/ScreenTimeApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ScreenTimeApp/Preview Content\"";
@@ -341,6 +344,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ScreenTimeApp/ScreenTimeApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ScreenTimeApp/Preview Content\"";
