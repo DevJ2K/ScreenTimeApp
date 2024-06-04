@@ -153,10 +153,10 @@ struct MainView: View {
                 Button {
                     if (selectedMode == "continuous") {
                         if (isContinuousRunning) {
-//                            model.stopMonitoring()
+                            model.stopContinuousMonitoring()
                             isContinuousRunning = false
                         } else {
-//                            model.initiateMonitoring()
+                            model.startContinuousMonitoring()
                             isContinuousRunning = true
                         }
                     }
