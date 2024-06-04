@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct MainView: View {
-    @State private var selectedMode = "immediate"
+    @State private var selectedMode = "continuous"
     @State private var appsToLock = "0"
     
-    @State private var isImmediateRunning = false
+    @State private var isContinuousRunning = false
     
     // Variable du mode strict
     @State private var strictMode = false
@@ -38,7 +38,7 @@ struct MainView: View {
     
     @Environment (\.colorScheme) private var colorScheme
     
-    @StateObject var model = MyModel.shared
+    @StateObject var model = ScreenTimeModel.shared
     
     @State private var appSelectionModal = false
 
@@ -50,7 +50,7 @@ struct MainView: View {
         if (selectedMode == "programmed") {
             return ("Programmer")
         }
-        return ("Démarrer")
+        return (isContinuousRunning ? "Stop" : "Démarrer")
     }
     
     var body: some View {
@@ -75,7 +75,7 @@ struct MainView: View {
     //                        .padding(.vertical, 12)
                             .foregroundStyle(colorScheme == .dark ? .white : .black)
                         })
-                        .familyActivityPicker(isPresented: $appSelectionModal, selection: $model.selectionToDiscourage)
+                        .familyActivityPicker(isPresented: $appSelectionModal, selection: $model.activitySelection)
                         Toggle(isOn: $strictMode, label: {
                             HStack {
                                 Text("Mode Strict")
@@ -151,16 +151,15 @@ struct MainView: View {
                 .scrollContentBackground(.hidden)
                 .navigationTitle("ScreenTimeApp")
                 Button {
-                    if (selectedMode == "immediate") {
-                        if (isImmediateRunning) {
-                            model.stopMonitoring()
-                            isImmediateRunning = false
+                    if (selectedMode == "continuous") {
+                        if (isContinuousRunning) {
+//                            model.stopMonitoring()
+                            isContinuousRunning = false
                         } else {
-                            model.initiateMonitoring()
-                            isImmediateRunning = true
+//                            model.initiateMonitoring()
+                            isContinuousRunning = true
                         }
                     }
-                    print("Start !")
                 } label: {
                     Text(getStartText())
                         .foregroundStyle(colorScheme == .dark ? .black : .white)
