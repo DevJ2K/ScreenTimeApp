@@ -7,14 +7,29 @@
 
 import SwiftUI
 
+func getBooleanOf(keyName: String) -> Bool {
+    // Accéder aux UserDefaults avec le nom de suite "isModeRunning"
+    if let sharedDefaults = UserDefaults(suiteName: appGroup) {
+        let value = sharedDefaults.bool(forKey: keyName)
+        return value
+    }
+    return false
+}
+
+func saveBooleanOf(keyName: String, value: Bool) {
+    if let sharedDefaults = UserDefaults(suiteName: appGroup) {
+        sharedDefaults.set(value, forKey: keyName)
+    }
+}
+
 struct MainView: View {
     @State private var selectedMode = "programmed"
     @State private var appsToLock = "0"
     
-    @State private var isContinuousRunning = false
+    @State private var isModeRunning = getBooleanOf(keyName: "isModeRunning")
     
     // Variable du mode strict
-    @State private var strictMode = false
+    @State private var strictMode = getBooleanOf(keyName: "isInStrictMode")
     
     // La durée lorsqu'on sélectionne le mode immédiat | Par défaut 0 hrs et 5 mns
     @State private var immediateHours: Int = 0
@@ -47,10 +62,11 @@ struct MainView: View {
     }
     
     func getStartText() -> String {
-        if (selectedMode == "programmed") {
-            return ("Programmer")
+        if (isModeRunning) {
+            return ("Stop")
+        } else {
+            return selectedMode == "programmed" ? "Programmer" : "Démarrer"
         }
-        return (isContinuousRunning ? "Stop" : "Démarrer")
     }
     
     var body: some View {
@@ -151,23 +167,28 @@ struct MainView: View {
                 .scrollContentBackground(.hidden)
                 .navigationTitle("ScreenTimeApp")
                 Button {
-                    if (selectedMode == "programmed") {
-                        if (isContinuousRunning) {
-                            model.stopContinuousMode()
-                            isContinuousRunning = false
-                        } else {
+                    
+                    if (isModeRunning) {
+                        model.removeRestrictions()
+                        isModeRunning = false
+                        saveBooleanOf(keyName: "isModeRunning", value: isModeRunning)
+                        print("All restrictions has been removed !")
+                    } else {
+                        switch selectedMode {
+                        case "immediate":
+                            print("STARTING MODE : Immediate")
+                            model.startTimerMode()
+                        case "programmed":
+                            print("STARTING MODE : Programmed")
                             model.startProgrammedMode()
-                            isContinuousRunning = true
-                        }
-                    }
-                    if (selectedMode == "continuous") {
-                        if (isContinuousRunning) {
-                            model.stopContinuousMode()
-                            isContinuousRunning = false
-                        } else {
+                        case "continuous":
+                            print("STARTING MODE : Continuous")
                             model.startContinuousMode()
-                            isContinuousRunning = true
+                        default:
+                            print("Mode not found")
                         }
+                        isModeRunning = true
+                        saveBooleanOf(keyName: "isModeRunning", value: isModeRunning)
                     }
                 } label: {
                     Text(getStartText())

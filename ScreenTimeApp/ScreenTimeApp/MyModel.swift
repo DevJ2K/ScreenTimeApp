@@ -87,14 +87,26 @@ class ScreenTimeModel: ObservableObject {
     }
     
     func startTimerMode() {
+        
+        // Obtenez la date actuelle
+        let now = Date()
+
+        // Créez un DateComponents pour le début de l'intervalle en utilisant la date actuelle
+        let calendar = Calendar.current
+        let intervalStartComponents = calendar.dateComponents([.hour, .minute, .second], from: now)
+
+        // Ajoutez 1h30 à la date actuelle pour obtenir la fin de l'intervalle
+        let intervalEndDate = calendar.date(byAdding: .minute, value: 90, to: now)!
+        let intervalEndComponents = calendar.dateComponents([.hour, .minute, .second], from: intervalEndDate)
+
         let schedule = DeviceActivitySchedule(
-            intervalStart: DateComponents(hour: 10, minute: 35, second: 30), intervalEnd: DateComponents(hour: 23, minute: 59, second: 59), repeats: true, warningTime: nil
+            intervalStart: intervalStartComponents, intervalEnd: intervalEndComponents, repeats: false, warningTime: nil
         )
         do {
             try deviceActivityCenter.startMonitoring(.restricted, during: schedule)
             print("The continuous restriction is up !")
         } catch {
-            print("Unexpected error while starting monitoring : \(error).")
+            print("Unexpected error while starting timer monitor: \(error).")
         }
     }
     
@@ -102,13 +114,13 @@ class ScreenTimeModel: ObservableObject {
         // Minimum interval : 15minutes
         // Maximum interval : 1 week
         let schedule = DeviceActivitySchedule(
-            intervalStart: DateComponents(hour: 9, minute: 30, second: 40), intervalEnd: DateComponents(hour: 10, minute: 44, second: 0), repeats: true, warningTime: nil
+            intervalStart: DateComponents(hour: 9, minute: 30, second: 40), intervalEnd: DateComponents(hour: 10, minute: 50, second: 0), repeats: true, warningTime: nil
         )
         do {
             try deviceActivityCenter.startMonitoring(.restricted, during: schedule)
             print("The continuous restriction is up !")
         } catch {
-            print("Unexpected error while starting monitoring : \(error).")
+            print("Unexpected error while starting programmed monitor : \(error).")
         }
     }
     
@@ -122,11 +134,6 @@ class ScreenTimeModel: ObservableObject {
         print("MODE : Continuous : Stop")
     }
 }
-
-//let schedule = DeviceActivitySchedule(
-//    intervalStart: DateComponents(hour: 0, minute: 0, second: 0), intervalEnd: DateComponents(hour: 23, minute: 59, second: 59), repeats: true, warningTime: nil
-//)
-
 
 extension DeviceActivityName {
     static let restricted = Self("restricted")
