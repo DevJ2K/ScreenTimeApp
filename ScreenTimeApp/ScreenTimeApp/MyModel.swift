@@ -99,8 +99,10 @@ class ScreenTimeModel: ObservableObject {
     }
     
     func startProgrammedMode() {
+        // Minimum interval : 15minutes
+        // Maximum interval : 1 week
         let schedule = DeviceActivitySchedule(
-            intervalStart: DateComponents(hour: 10, minute: 36, second: 40), intervalEnd: DateComponents(hour: 23, minute: 59, second: 59), repeats: true, warningTime: nil
+            intervalStart: DateComponents(hour: 9, minute: 30, second: 40), intervalEnd: DateComponents(hour: 10, minute: 44, second: 0), repeats: true, warningTime: nil
         )
         do {
             try deviceActivityCenter.startMonitoring(.restricted, during: schedule)
