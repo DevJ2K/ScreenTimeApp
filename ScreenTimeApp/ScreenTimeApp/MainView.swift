@@ -22,7 +22,7 @@ func saveBooleanOf(keyName: String, value: Bool) {
 }
 
 struct MainView: View {
-    @State private var selectedMode = "continuous"
+    @State private var selectedMode = "immediate"
     @State private var appsToLock = "0"
     
     @State private var alertErrorMessage = ""
@@ -66,7 +66,7 @@ struct MainView: View {
     
     func getStartText() -> String {
         if (isModeRunning) {
-            return ("Stop")
+            return ("Arrêt de blocage")
         } else {
             return selectedMode == "programmed" ? "Programmer" : "Démarrer"
         }
