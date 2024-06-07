@@ -19,6 +19,7 @@ class DeviceActivityMonitorExtension: DeviceActivityMonitor {
         super.init()
         print("Successfully init !")
     }
+
     override func intervalDidStart(for activity: DeviceActivityName) {
         super.intervalDidStart(for: activity)
         

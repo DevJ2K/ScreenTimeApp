@@ -32,23 +32,6 @@ func loadActivitySelection() -> FamilyActivitySelection {
     return FamilyActivitySelection()
 }
 
-
-//func saveSelection(selection: FamilyActivitySelection) {
-//    let defaults = UserDefaults.standard
-//    let encoder = JSONEncoder()
-//
-//    defaults.set(try? encoder.encode(selection), forKey: userDefaultsKey)
-//}
-//
-//func loadSavedSelection() -> FamilyActivitySelection? {
-//    let defaults = UserDefaults.standard
-//    let decoder = JSONDecoder()
-//
-//    guard let data = defaults.data(forKey: userDefaultsKey) else { return nil }
-//    return try? decoder.decode(FamilyActivitySelection.self, from: data)
-//}
-
-
 class ScreenTimeModel: ObservableObject {
     static let shared = ScreenTimeModel()
     let store = ManagedSettingsStore(named: .restricted)
@@ -56,13 +39,12 @@ class ScreenTimeModel: ObservableObject {
     // Pour gérer le début et la fin d'une surveillance.
     let deviceActivityCenter = DeviceActivityCenter()
     
-    let activitySelectionKey = "ScreenTimeSelectionKey"
     
-        var activitySelection = loadActivitySelection() {
-            willSet {
-                saveActivitySelection(activitySelection: newValue)
-            }
+    var activitySelection = loadActivitySelection() {
+        willSet {
+            saveActivitySelection(activitySelection: newValue)
         }
+    }
     
     private init(){}
     
@@ -86,19 +68,15 @@ class ScreenTimeModel: ObservableObject {
         print("Restrictions successfully removed !")
     }
     
-    func startTimerMode() {
-        
-        // Obtenez la date actuelle
+    func startTimerMode(hours: Int, minutes: Int) {
         let now = Date()
-
-        // Créez un DateComponents pour le début de l'intervalle en utilisant la date actuelle
         let calendar = Calendar.current
+        
         let intervalStartComponents = calendar.dateComponents([.hour, .minute, .second], from: now)
 
-        // Ajoutez 1h30 à la date actuelle pour obtenir la fin de l'intervalle
-        let intervalEndDate = calendar.date(byAdding: .minute, value: 90, to: now)!
+        let intervalEndDate = calendar.date(byAdding: .minute, value: ((hours * 60) + minutes), to: now)!
         let intervalEndComponents = calendar.dateComponents([.hour, .minute, .second], from: intervalEndDate)
-
+        
         let schedule = DeviceActivitySchedule(
             intervalStart: intervalStartComponents, intervalEnd: intervalEndComponents, repeats: false, warningTime: nil
         )
@@ -110,11 +88,16 @@ class ScreenTimeModel: ObservableObject {
         }
     }
     
-    func startProgrammedMode() {
+    func startProgrammedMode(start: Date, end: Date) {
         // Minimum interval : 15minutes
         // Maximum interval : 1 week
+        let calendar = Calendar.current
+        
+        let intervalStartComponents = calendar.dateComponents([.hour, .minute, .second], from: start)
+        let intervalEndComponents = calendar.dateComponents([.hour, .minute, .second], from: end)
+        
         let schedule = DeviceActivitySchedule(
-            intervalStart: DateComponents(hour: 9, minute: 30, second: 40), intervalEnd: DateComponents(hour: 10, minute: 50, second: 0), repeats: true, warningTime: nil
+            intervalStart: intervalStartComponents, intervalEnd: intervalEndComponents, repeats: true, warningTime: nil
         )
         do {
             try deviceActivityCenter.startMonitoring(.restricted, during: schedule)

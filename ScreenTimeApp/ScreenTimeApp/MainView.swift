@@ -30,6 +30,7 @@ struct MainView: View {
     
     // Variable du mode strict
     @State private var strictMode = getBooleanOf(keyName: "isInStrictMode")
+    @State private var showStrictModeAlert = false
     
     // La durée lorsqu'on sélectionne le mode immédiat | Par défaut 0 hrs et 5 mns
     @State private var immediateHours: Int = 0
@@ -110,6 +111,9 @@ struct MainView: View {
                                 .padding(.horizontal, 4)
                             }
                         })
+                        .onChange(of: strictMode) { newValue in
+                            saveBooleanOf(keyName: "isInStrictMode", value: strictMode)
+                        }
                     } header: {
                         Text("Bloquer")
                             .foregroundStyle(colorScheme == .dark ? .white : .black)
@@ -169,18 +173,22 @@ struct MainView: View {
                 Button {
                     
                     if (isModeRunning) {
-                        model.removeRestrictions()
-                        isModeRunning = false
-                        saveBooleanOf(keyName: "isModeRunning", value: isModeRunning)
-                        print("All restrictions has been removed !")
+                        if (strictMode == false) {
+                            model.removeRestrictions()
+                            isModeRunning = false
+                            saveBooleanOf(keyName: "isModeRunning", value: isModeRunning)
+                            print("All restrictions has been removed !")
+                        } else {
+                            showStrictModeAlert = true
+                        }
                     } else {
                         switch selectedMode {
                         case "immediate":
                             print("STARTING MODE : Immediate")
-                            model.startTimerMode()
+                            model.startTimerMode(hours: immediateHours, minutes: immediateMinutes)
                         case "programmed":
                             print("STARTING MODE : Programmed")
-                            model.startProgrammedMode()
+                            model.startProgrammedMode(start: programmedStart, end: programmedEnd)
                         case "continuous":
                             print("STARTING MODE : Continuous")
                             model.startContinuousMode()
@@ -200,6 +208,10 @@ struct MainView: View {
                         .padding()
                 }
                 .ignoresSafeArea(.all)
+                .alert(isPresented: $showStrictModeAlert) {
+                    Alert(title: Text("Strict Mode"), message: Text("Vous ne pouvez pas désactiver la restriction tant que le strict mode est activé."), dismissButton: .default(Text("Ok")))
+
+                }
             }
             .background(colorScheme == .light ? .gray.opacity(0.1) : .black)
         }
