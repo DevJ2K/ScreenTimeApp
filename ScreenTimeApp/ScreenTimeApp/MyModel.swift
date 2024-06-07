@@ -14,6 +14,12 @@ import ManagedSettings
 let appGroup = "group.fr.devj2k.ScreenTimeApp"
 let activitySelectionKey = "ScreenTimeSelectionKey"
 
+struct StructSelectionCount {
+    var applications: Int
+    var categories: Int
+    var webDomain: Int
+}
+
 func saveActivitySelection(activitySelection: FamilyActivitySelection) {
     if let sharedDefaults = UserDefaults(suiteName: appGroup) {
         
@@ -32,16 +38,36 @@ func loadActivitySelection() -> FamilyActivitySelection {
     return FamilyActivitySelection()
 }
 
+func initSelectionCount() -> StructSelectionCount {
+    let activitySelection = loadActivitySelection()
+    return StructSelectionCount(
+        applications: activitySelection.applications.count,
+        categories: activitySelection.categories.count,
+        webDomain: activitySelection.webDomains.count)
+}
+
 class ScreenTimeModel: ObservableObject {
     static let shared = ScreenTimeModel()
+    @Published var selectionCount = initSelectionCount()
+
     let store = ManagedSettingsStore(named: .restricted)
     
-    // Pour gérer le début et la fin d'une surveillance.
     let deviceActivityCenter = DeviceActivityCenter()
-    
-    
+
     var activitySelection = loadActivitySelection() {
         willSet {
+            // Afficher le nombre d'applications stockées
+//            print("Nombre d'applications stockées : \(newValue)")
+//            print("Nombre d'applications stockées : \(newValue.applicationTokens)")
+//            print("Nombre d'applications stockées : \(newValue.categories)")
+//            print("Nombre d'applications stockées : \(newValue.categories.count)")
+//            print("Nombre d'applications stockées : \(newValue.applications.count)")
+            selectionCount.applications = newValue.applications.count
+            selectionCount.categories = newValue.categories.count
+            selectionCount.webDomain = newValue.webDomains.count
+            
+            
+            
             saveActivitySelection(activitySelection: newValue)
         }
     }
@@ -68,7 +94,7 @@ class ScreenTimeModel: ObservableObject {
         print("Restrictions successfully removed !")
     }
     
-    func startTimerMode(hours: Int, minutes: Int) {
+    func startTimerMode(hours: Int, minutes: Int) -> String {
         let now = Date()
         let calendar = Calendar.current
         
@@ -83,12 +109,14 @@ class ScreenTimeModel: ObservableObject {
         do {
             try deviceActivityCenter.startMonitoring(.restricted, during: schedule)
             print("The continuous restriction is up !")
+            return ""
         } catch {
             print("Unexpected error while starting timer monitor: \(error).")
+            return "Unexpected error while starting timer monitor: \(error)."
         }
     }
     
-    func startProgrammedMode(start: Date, end: Date) {
+    func startProgrammedMode(start: Date, end: Date) -> String {
         // Minimum interval : 15minutes
         // Maximum interval : 1 week
         let calendar = Calendar.current
@@ -102,8 +130,10 @@ class ScreenTimeModel: ObservableObject {
         do {
             try deviceActivityCenter.startMonitoring(.restricted, during: schedule)
             print("The continuous restriction is up !")
+            return ""
         } catch {
             print("Unexpected error while starting programmed monitor : \(error).")
+            return "Unexpected error while starting programmed monitor : \(error)."
         }
     }
     

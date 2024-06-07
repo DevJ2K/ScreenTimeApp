@@ -23,14 +23,17 @@ func saveBooleanOf(keyName: String, value: Bool) {
 }
 
 struct MainView: View {
-    @State private var selectedMode = "programmed"
+    @State private var selectedMode = "continuous"
     @State private var appsToLock = "0"
+    
+    @State private var alertErrorMessage = ""
+    @State private var alertErrorTitle = ""
+    @State private var showAlert = false
     
     @State private var isModeRunning = getBooleanOf(keyName: "isModeRunning")
     
     // Variable du mode strict
     @State private var strictMode = getBooleanOf(keyName: "isInStrictMode")
-    @State private var showStrictModeAlert = false
     
     // La durée lorsqu'on sélectionne le mode immédiat | Par défaut 0 hrs et 5 mns
     @State private var immediateHours: Int = 0
@@ -84,12 +87,39 @@ struct MainView: View {
                                 Spacer()
     //                            Text("\(immediateHours)h \(immediateMinutes)m")
     //                                .foregroundStyle(.secondary)
+                                
+                                HStack {
+                                    Image(systemName: "square.grid.2x2")
+                                    Text("\(model.selectionCount.applications)")
+                                }
+                                .font(.caption)
+                                .padding(.vertical, 4)
+                                .padding(.horizontal, 4)
+                                .background(RoundedRectangle(cornerRadius: 6).opacity(0.2))
+                                HStack {
+                                    Image(systemName: "folder")
+                                    Text("\(model.selectionCount.categories)")
+                                }
+                                .font(.caption)
+                                .padding(.vertical, 4)
+                                .padding(.horizontal, 4)
+                                .background(RoundedRectangle(cornerRadius: 6).opacity(0.2))
+                                HStack {
+                                    Image(systemName: "globe")
+                                    Text("\(model.selectionCount.webDomain)")
+                                }
+                                .font(.caption)
+                                .padding(.vertical, 4)
+                                .padding(.horizontal, 4)
+                                .background(RoundedRectangle(cornerRadius: 6).opacity(0.2))
+                                
+                                
                                 Image(systemName: "chevron.right")
                                     .foregroundStyle(.secondary)
                                     .font(.caption)
                                     .bold()
                             }
-    //                        .padding(.vertical, 12)
+                            .padding(.vertical, 6)
                             .foregroundStyle(colorScheme == .dark ? .white : .black)
                         })
                         .familyActivityPicker(isPresented: $appSelectionModal, selection: $model.activitySelection)
@@ -179,24 +209,34 @@ struct MainView: View {
                             saveBooleanOf(keyName: "isModeRunning", value: isModeRunning)
                             print("All restrictions has been removed !")
                         } else {
-                            showStrictModeAlert = true
+                            print("Cannot stop because the strict mode is on.")
+                            alertErrorTitle = "Strict Mode"
+                            alertErrorMessage = "Vous ne pouvez pas désactiver la restriction tant que le strict mode est activé."
+                            showAlert = true
                         }
                     } else {
+                        alertErrorMessage = ""
                         switch selectedMode {
                         case "immediate":
                             print("STARTING MODE : Immediate")
-                            model.startTimerMode(hours: immediateHours, minutes: immediateMinutes)
+                            alertErrorMessage = model.startTimerMode(hours: immediateHours, minutes: immediateMinutes)
                         case "programmed":
                             print("STARTING MODE : Programmed")
-                            model.startProgrammedMode(start: programmedStart, end: programmedEnd)
+                            alertErrorMessage = model.startProgrammedMode(start: programmedStart, end: programmedEnd)
                         case "continuous":
                             print("STARTING MODE : Continuous")
                             model.startContinuousMode()
                         default:
+                            alertErrorMessage = "Mode not found."
                             print("Mode not found")
                         }
-                        isModeRunning = true
-                        saveBooleanOf(keyName: "isModeRunning", value: isModeRunning)
+                        if (alertErrorMessage == "") {
+                            isModeRunning = true
+                            saveBooleanOf(keyName: "isModeRunning", value: isModeRunning)
+                        } else {
+                            alertErrorTitle = "Mode Error"
+                            showAlert = true
+                        }
                     }
                 } label: {
                     Text(getStartText())
@@ -208,9 +248,8 @@ struct MainView: View {
                         .padding()
                 }
                 .ignoresSafeArea(.all)
-                .alert(isPresented: $showStrictModeAlert) {
-                    Alert(title: Text("Strict Mode"), message: Text("Vous ne pouvez pas désactiver la restriction tant que le strict mode est activé."), dismissButton: .default(Text("Ok")))
-
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text(alertErrorTitle), message: Text(alertErrorMessage), dismissButton: .default(Text("Ok")))
                 }
             }
             .background(colorScheme == .light ? .gray.opacity(0.1) : .black)
