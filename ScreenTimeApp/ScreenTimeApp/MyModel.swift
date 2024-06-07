@@ -98,7 +98,9 @@ class ScreenTimeModel: ObservableObject {
         let now = Date()
         let calendar = Calendar.current
         
-        let intervalStartComponents = calendar.dateComponents([.hour, .minute, .second], from: now)
+        let intervalStartDate = calendar.date(byAdding: .minute, value: -30, to: now)!
+        let intervalStartComponents = calendar.dateComponents([.hour, .minute, .second], from: intervalStartDate)
+
 
         let intervalEndDate = calendar.date(byAdding: .minute, value: ((hours * 60) + minutes), to: now)!
         let intervalEndComponents = calendar.dateComponents([.hour, .minute, .second], from: intervalEndDate)

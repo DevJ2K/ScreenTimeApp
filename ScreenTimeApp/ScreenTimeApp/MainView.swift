@@ -62,7 +62,7 @@ struct MainView: View {
     @State private var appSelectionModal = false
 
     init() {
-        UIDatePicker.appearance().minuteInterval = 5
+        UIDatePicker.appearance().minuteInterval = 1
     }
     
     func getStartText() -> String {
