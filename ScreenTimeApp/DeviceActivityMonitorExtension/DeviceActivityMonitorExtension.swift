@@ -20,6 +20,7 @@ class DeviceActivityMonitorExtension: DeviceActivityMonitor {
         print("Successfully init !")
     }
 
+    // Cette fonction est appelé lorsqu'un interval est créé
     override func intervalDidStart(for activity: DeviceActivityName) {
         super.intervalDidStart(for: activity)
         
@@ -28,6 +29,7 @@ class DeviceActivityMonitorExtension: DeviceActivityMonitor {
         model.applyRestrictions()
     }
     
+    // Cette fonction est appelé lorsqu'un interval est terminé ou clear()
     override func intervalDidEnd(for activity: DeviceActivityName) {
         super.intervalDidEnd(for: activity)
         

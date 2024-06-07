@@ -43,7 +43,7 @@ struct TimePickerView: View {
                 .onChange(of: tempSelectedHours) { newValue in
                     if (newValue == 0 && tempSelectedMinutes == 0) {
                         withAnimation(.easeInOut(duration: 0.1)) {
-                            tempSelectedMinutes = 5
+                            tempSelectedMinutes = 1
                         }
                     }
                 }
@@ -52,14 +52,14 @@ struct TimePickerView: View {
                 Text("hrs")
                     .bold()
                 Picker("minutes", selection: $tempSelectedMinutes) {
-                    ForEach(stride(from: 0, to: 60, by: 5).map({$0}), id: \.self) { i in
+                    ForEach(stride(from: 0, to: 60, by: 1).map({$0}), id: \.self) { i in
                         Text("\(i)").tag(i)
                     }
                 }
                 .onChange(of: tempSelectedMinutes) { newValue in
                     if (tempSelectedHours == 0 && newValue == 0) {
                         withAnimation(.easeInOut(duration: 0.1)) {
-                            tempSelectedMinutes = 5
+                            tempSelectedMinutes = 1
                         }
                     }
                 }

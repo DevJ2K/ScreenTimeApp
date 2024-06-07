@@ -10,8 +10,10 @@ import FamilyControls
 import DeviceActivity
 import ManagedSettings
 
-
+// Pour faire communiquer les targets entre elles, il faut passer par un app groups.
 let appGroup = "group.fr.devj2k.ScreenTimeApp"
+
+// Le nom de la clé où sera sauvegardé les activités sélectionnées.
 let activitySelectionKey = "ScreenTimeSelectionKey"
 
 struct StructSelectionCount {
@@ -20,6 +22,7 @@ struct StructSelectionCount {
     var webDomain: Int
 }
 
+// Pour sauvegarder les activités sélectionnées.
 func saveActivitySelection(activitySelection: FamilyActivitySelection) {
     if let sharedDefaults = UserDefaults(suiteName: appGroup) {
         
@@ -28,6 +31,7 @@ func saveActivitySelection(activitySelection: FamilyActivitySelection) {
     }
 }
 
+// Pour récupérer les activités sauvegardées.
 func loadActivitySelection() -> FamilyActivitySelection {
     if let sharedDefaults = UserDefaults(suiteName: appGroup) {
         guard let value = sharedDefaults.data(forKey: activitySelectionKey) else { return FamilyActivitySelection() }
@@ -38,6 +42,7 @@ func loadActivitySelection() -> FamilyActivitySelection {
     return FamilyActivitySelection()
 }
 
+// Pour connaître le nombre d'applications, catégories et webDomain sélectionnées.
 func initSelectionCount() -> StructSelectionCount {
     let activitySelection = loadActivitySelection()
     return StructSelectionCount(
@@ -54,6 +59,7 @@ class ScreenTimeModel: ObservableObject {
     
     let deviceActivityCenter = DeviceActivityCenter()
 
+    // Chaque fois que l'utilisateur changera les applications sélectionnées, cette méthode sera appelé.
     var activitySelection = loadActivitySelection() {
         willSet {
             selectionCount.applications = newValue.applications.count
@@ -65,6 +71,7 @@ class ScreenTimeModel: ObservableObject {
     
     private init(){}
     
+    // Stocke les applications dans store.shield. pour appliquer les restrictions.
     func applyRestrictions() {
         let selection = loadActivitySelection()
         
@@ -79,12 +86,14 @@ class ScreenTimeModel: ObservableObject {
         print("The restrictions have been successfully added !")
     }
     
+    // Retire toutes les restrictions et intervalles.
     func removeRestrictions() {
         deviceActivityCenter.stopMonitoring()
         store.clearAllSettings()
         print("Restrictions successfully removed !")
     }
     
+    // Pour lancer la restriction pour une durée de "hours" et "minutes"
     func startTimerMode(hours: Int, minutes: Int) -> String {
         let now = Date()
         let calendar = Calendar.current
@@ -109,6 +118,7 @@ class ScreenTimeModel: ObservableObject {
         }
     }
     
+    // Pour lancer la restriction de manière récurrente.
     func startProgrammedMode(start: Date, end: Date) -> String {
         // Minimum interval : 15minutes
         // Maximum interval : 1 week
@@ -130,14 +140,10 @@ class ScreenTimeModel: ObservableObject {
         }
     }
     
+    // Lancer indéfiniment les restrictions
     func startContinuousMode() {
         applyRestrictions()
         print("MODE : Continuous : Start")
-    }
-    
-    func stopContinuousMode() {
-        removeRestrictions()
-        print("MODE : Continuous : Stop")
     }
 }
 
