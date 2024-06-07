@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
-    @State private var selectedMode = "continuous"
+    @State private var selectedMode = "programmed"
     @State private var appsToLock = "0"
     
     @State private var isContinuousRunning = false
@@ -151,6 +151,15 @@ struct MainView: View {
                 .scrollContentBackground(.hidden)
                 .navigationTitle("ScreenTimeApp")
                 Button {
+                    if (selectedMode == "programmed") {
+                        if (isContinuousRunning) {
+                            model.stopContinuousMode()
+                            isContinuousRunning = false
+                        } else {
+                            model.startProgrammedMode()
+                            isContinuousRunning = true
+                        }
+                    }
                     if (selectedMode == "continuous") {
                         if (isContinuousRunning) {
                             model.stopContinuousMode()

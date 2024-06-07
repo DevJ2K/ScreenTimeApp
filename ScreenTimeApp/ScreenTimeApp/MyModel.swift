@@ -61,22 +61,12 @@ class ScreenTimeModel: ObservableObject {
         var activitySelection = loadActivitySelection() {
             willSet {
                 saveActivitySelection(activitySelection: newValue)
-                //            print ("got here \(newValue)")
-                
-//                let applications = newValue.applicationTokens
-//                let categories = newValue.categoryTokens
-//                let webCategories = newValue.webDomainTokens
-
-                //            print("Number of applications : \(applications.count)")
-    //            store.shield.applications = applications.isEmpty ? nil : applications
-    //            store.shield.applicationCategories = ShieldSettings.ActivityCategoryPolicy.specific(categories, except: Set())
-    //            store.shield.webDomains = webCategories
             }
         }
     
     private init(){}
     
-    private func applyRestrictions() {
+    func applyRestrictions() {
         let selection = loadActivitySelection()
         
         let applications = selection.applicationTokens
@@ -90,14 +80,28 @@ class ScreenTimeModel: ObservableObject {
         print("The restrictions have been successfully added !")
     }
     
-    private func removeRestrictions() {
+    func removeRestrictions() {
         deviceActivityCenter.stopMonitoring()
         store.clearAllSettings()
         print("Restrictions successfully removed !")
     }
     
     func startTimerMode() {
-        
+        let schedule = DeviceActivitySchedule(
+            intervalStart: DateComponents(hour: 10, minute: 35, second: 30), intervalEnd: DateComponents(hour: 23, minute: 59, second: 59), repeats: true, warningTime: nil
+        )
+        do {
+            try deviceActivityCenter.startMonitoring(.restricted, during: schedule)
+            print("The continuous restriction is up !")
+        } catch {
+            print("Unexpected error while starting monitoring : \(error).")
+        }
+    }
+    
+    func startProgrammedMode() {
+        let schedule = DeviceActivitySchedule(
+            intervalStart: DateComponents(hour: 10, minute: 36, second: 40), intervalEnd: DateComponents(hour: 23, minute: 59, second: 59), repeats: true, warningTime: nil
+        )
         do {
             try deviceActivityCenter.startMonitoring(.restricted, during: schedule)
             print("The continuous restriction is up !")
@@ -117,9 +121,9 @@ class ScreenTimeModel: ObservableObject {
     }
 }
 
-let schedule = DeviceActivitySchedule(
-    intervalStart: DateComponents(hour: 0, minute: 0, second: 0), intervalEnd: DateComponents(hour: 23, minute: 59, second: 59), repeats: true, warningTime: nil
-)
+//let schedule = DeviceActivitySchedule(
+//    intervalStart: DateComponents(hour: 0, minute: 0, second: 0), intervalEnd: DateComponents(hour: 23, minute: 59, second: 59), repeats: true, warningTime: nil
+//)
 
 
 extension DeviceActivityName {

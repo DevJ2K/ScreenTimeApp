@@ -24,14 +24,7 @@ class DeviceActivityMonitorExtension: DeviceActivityMonitor {
         
         // Handle the start of the interval.
         print("An interval has started !")
-        
-        let applications = model.activitySelection.applicationTokens
-        let categories = model.activitySelection.categoryTokens
-        let webCategories = model.activitySelection.webDomainTokens
-        
-        store.shield.applications = applications.isEmpty ? nil : applications
-        store.shield.applicationCategories = categories.isEmpty ? nil : ShieldSettings.ActivityCategoryPolicy.specific(categories, except: Set())
-        store.shield.webDomains = webCategories.isEmpty ? nil : webCategories
+        model.applyRestrictions()
     }
     
     override func intervalDidEnd(for activity: DeviceActivityName) {
@@ -39,6 +32,7 @@ class DeviceActivityMonitorExtension: DeviceActivityMonitor {
         
         // Handle the end of the interval.
         print("An interval has ended !")
+        model.removeRestrictions()
     }
     
     override func eventDidReachThreshold(_ event: DeviceActivityEvent.Name, activity: DeviceActivityName) {
