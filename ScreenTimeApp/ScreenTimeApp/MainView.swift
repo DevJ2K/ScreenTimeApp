@@ -8,7 +8,6 @@
 import SwiftUI
 
 func getBooleanOf(keyName: String) -> Bool {
-    // Accéder aux UserDefaults avec le nom de suite "isModeRunning"
     if let sharedDefaults = UserDefaults(suiteName: appGroup) {
         let value = sharedDefaults.bool(forKey: keyName)
         return value
@@ -76,7 +75,6 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                
                 List {
                     Section {
                         Button(action: {
@@ -85,9 +83,6 @@ struct MainView: View {
                             HStack {
                                 Text("Apps & Sites web")
                                 Spacer()
-    //                            Text("\(immediateHours)h \(immediateMinutes)m")
-    //                                .foregroundStyle(.secondary)
-                                
                                 HStack {
                                     Image(systemName: "square.grid.2x2")
                                     Text("\(model.selectionCount.applications)")
@@ -179,8 +174,6 @@ struct MainView: View {
                                 TimePickerView(selectedHours: $immediateHours, selectedMinutes: $immediateMinutes, isImmediateSheetOpened: $isImmediateSheetOpened)
                                     .presentationDetents([.medium])
                                     .presentationDragIndicator(.visible)
-//                                    .interactiveDismissDisabled()
-                                
                             }
                         } else if (selectedMode == "programmed") {
                             DatePicker(selection: $programmedStart, displayedComponents: .hourAndMinute) {

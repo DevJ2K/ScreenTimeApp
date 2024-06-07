@@ -56,7 +56,6 @@ struct ContentView: View {
                     print("Failed to enroll Aniyah with error: \(error)")
                 }
             }
-//            checkAuthorizationStatus()
         }
     }
 }

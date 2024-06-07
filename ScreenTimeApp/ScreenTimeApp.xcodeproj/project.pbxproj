@@ -17,7 +17,6 @@
 		E471D0122C104EF000C33814 /* DeviceActivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E471D0112C104EF000C33814 /* DeviceActivity.framework */; };
 		E471D0152C104EF000C33814 /* DeviceActivityMonitorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471D0142C104EF000C33814 /* DeviceActivityMonitorExtension.swift */; };
 		E471D01A2C104EF000C33814 /* DeviceActivityMonitorExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E471D00F2C104EF000C33814 /* DeviceActivityMonitorExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		E471D0212C10515600C33814 /* FamilyControlsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471D0202C10515600C33814 /* FamilyControlsManager.swift */; };
 		E471D0232C10581800C33814 /* DeviceActivityMonitorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471D0142C104EF000C33814 /* DeviceActivityMonitorExtension.swift */; };
 		E471D0242C105C8E00C33814 /* MyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46CC6832C0F0DD300682A50 /* MyModel.swift */; };
 /* End PBXBuildFile section */
@@ -71,7 +70,6 @@
 		E471D0142C104EF000C33814 /* DeviceActivityMonitorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceActivityMonitorExtension.swift; sourceTree = "<group>"; };
 		E471D0162C104EF000C33814 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E471D0172C104EF000C33814 /* DeviceActivityMonitorExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DeviceActivityMonitorExtension.entitlements; sourceTree = "<group>"; };
-		E471D0202C10515600C33814 /* FamilyControlsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyControlsManager.swift; sourceTree = "<group>"; };
 		E471D0222C10567D00C33814 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,7 +115,6 @@
 			isa = PBXGroup;
 			children = (
 				E471D0222C10567D00C33814 /* Info.plist */,
-				E471D01F2C10514100C33814 /* Utils */,
 				E46CC6822C0F029900682A50 /* ScreenTimeApp.entitlements */,
 				E4222DEC2C0DBB45002FE47B /* ScreenTimeAppApp.swift */,
 				E4222DEE2C0DBB45002FE47B /* ContentView.swift */,
@@ -154,14 +151,6 @@
 				E471D0172C104EF000C33814 /* DeviceActivityMonitorExtension.entitlements */,
 			);
 			path = DeviceActivityMonitorExtension;
-			sourceTree = "<group>";
-		};
-		E471D01F2C10514100C33814 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				E471D0202C10515600C33814 /* FamilyControlsManager.swift */,
-			);
-			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,7 +260,6 @@
 				E46CC6842C0F0DD300682A50 /* MyModel.swift in Sources */,
 				E4222DFB2C0DFF95002FE47B /* TimePickerView.swift in Sources */,
 				E4222DED2C0DBB45002FE47B /* ScreenTimeAppApp.swift in Sources */,
-				E471D0212C10515600C33814 /* FamilyControlsManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

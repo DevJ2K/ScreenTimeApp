@@ -41,7 +41,6 @@ struct TimePickerView: View {
                     }
                 }
                 .onChange(of: tempSelectedHours) { newValue in
-//                    print("\(newValue) | \(tempSelectedMinutes)")
                     if (newValue == 0 && tempSelectedMinutes == 0) {
                         withAnimation(.easeInOut(duration: 0.1)) {
                             tempSelectedMinutes = 5
@@ -58,7 +57,6 @@ struct TimePickerView: View {
                     }
                 }
                 .onChange(of: tempSelectedMinutes) { newValue in
-//                    print("\(newValue) | \(tempSelectedMinutes)")
                     if (tempSelectedHours == 0 && newValue == 0) {
                         withAnimation(.easeInOut(duration: 0.1)) {
                             tempSelectedMinutes = 5
@@ -83,9 +81,6 @@ struct TimePickerView: View {
                 .padding(.vertical, 18)
                 .background(RoundedRectangle(cornerRadius: 16)
                     .fill(colorScheme == .dark ? .white : .black))
-//                .padding()
-                
-                
                 Button(action: {
                     isImmediateSheetOpened = false
                     selectedHours = tempSelectedHours
@@ -98,7 +93,6 @@ struct TimePickerView: View {
                 .padding(.vertical, 18)
                 .background(RoundedRectangle(cornerRadius: 16)
                     .fill(colorScheme == .dark ? .white : .black))
-//                .padding()
             }
             .padding(.horizontal)
         }

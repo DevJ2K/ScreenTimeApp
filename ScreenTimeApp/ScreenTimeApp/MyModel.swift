@@ -56,18 +56,9 @@ class ScreenTimeModel: ObservableObject {
 
     var activitySelection = loadActivitySelection() {
         willSet {
-            // Afficher le nombre d'applications stockées
-//            print("Nombre d'applications stockées : \(newValue)")
-//            print("Nombre d'applications stockées : \(newValue.applicationTokens)")
-//            print("Nombre d'applications stockées : \(newValue.categories)")
-//            print("Nombre d'applications stockées : \(newValue.categories.count)")
-//            print("Nombre d'applications stockées : \(newValue.applications.count)")
             selectionCount.applications = newValue.applications.count
             selectionCount.categories = newValue.categories.count
             selectionCount.webDomain = newValue.webDomains.count
-            
-            
-            
             saveActivitySelection(activitySelection: newValue)
         }
     }
