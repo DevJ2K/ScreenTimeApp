@@ -54,11 +54,11 @@ func initSelectionCount() -> StructSelectionCount {
 class ScreenTimeModel: ObservableObject {
     static let shared = ScreenTimeModel()
     @Published var selectionCount = initSelectionCount()
-
+    
     let store = ManagedSettingsStore(named: .restricted)
     
     let deviceActivityCenter = DeviceActivityCenter()
-
+    
     // Chaque fois que l'utilisateur changera les applications sélectionnées, cette méthode sera appelé.
     var activitySelection = loadActivitySelection() {
         willSet {
@@ -83,6 +83,12 @@ class ScreenTimeModel: ObservableObject {
         store.shield.applicationCategories = categories.isEmpty ? nil : ShieldSettings.ActivityCategoryPolicy.specific(categories, except: Set())
         store.shield.webDomains = webCategories.isEmpty ? nil : webCategories
         
+        if let sharedDefaults = UserDefaults(suiteName: appGroup) {
+            let value = sharedDefaults.bool(forKey: "isInStrictMode")
+            if (value == true) {
+                store.application.denyAppRemoval = true
+            }
+        }
         print("The restrictions have been successfully added !")
     }
     
@@ -90,6 +96,7 @@ class ScreenTimeModel: ObservableObject {
     func removeRestrictions() {
         deviceActivityCenter.stopMonitoring()
         store.clearAllSettings()
+        store.application.denyAppRemoval = false
         print("Restrictions successfully removed !")
     }
     
@@ -100,8 +107,8 @@ class ScreenTimeModel: ObservableObject {
         
         let intervalStartDate = calendar.date(byAdding: .minute, value: -30, to: now)!
         let intervalStartComponents = calendar.dateComponents([.hour, .minute, .second], from: intervalStartDate)
-
-
+        
+        
         let intervalEndDate = calendar.date(byAdding: .minute, value: ((hours * 60) + minutes), to: now)!
         let intervalEndComponents = calendar.dateComponents([.hour, .minute, .second], from: intervalEndDate)
         

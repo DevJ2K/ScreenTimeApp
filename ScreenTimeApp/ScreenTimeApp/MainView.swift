@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ManagedSettings
 
 func getBooleanOf(keyName: String) -> Bool {
     if let sharedDefaults = UserDefaults(suiteName: appGroup) {
@@ -138,6 +139,12 @@ struct MainView: View {
                         })
                         .onChange(of: strictMode) { newValue in
                             saveBooleanOf(keyName: "isInStrictMode", value: strictMode)
+                            let store = ManagedSettingsStore(named: .restricted)
+                            if (strictMode == true && isModeRunning == true) {
+                                store.application.denyAppRemoval = true
+                            } else {
+                                store.application.denyAppRemoval = false
+                            }
                         }
                     } header: {
                         Text("Bloquer")
