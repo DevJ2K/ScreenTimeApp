@@ -14,9 +14,36 @@
 		E4222DFB2C0DFF95002FE47B /* TimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4222DFA2C0DFF95002FE47B /* TimePickerView.swift */; };
 		E4222DFD2C0E0B94002FE47B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4222DFC2C0E0B94002FE47B /* MainView.swift */; };
 		E46CC6842C0F0DD300682A50 /* MyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46CC6832C0F0DD300682A50 /* MyModel.swift */; };
+		E471D0122C104EF000C33814 /* DeviceActivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E471D0112C104EF000C33814 /* DeviceActivity.framework */; };
+		E471D0152C104EF000C33814 /* DeviceActivityMonitorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471D0142C104EF000C33814 /* DeviceActivityMonitorExtension.swift */; };
+		E471D01A2C104EF000C33814 /* DeviceActivityMonitorExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E471D00F2C104EF000C33814 /* DeviceActivityMonitorExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E471D0212C10515600C33814 /* FamilyControlsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471D0202C10515600C33814 /* FamilyControlsManager.swift */; };
+		E471D0232C10581800C33814 /* DeviceActivityMonitorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471D0142C104EF000C33814 /* DeviceActivityMonitorExtension.swift */; };
+		E471D0242C105C8E00C33814 /* MyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46CC6832C0F0DD300682A50 /* MyModel.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		E471D0182C104EF000C33814 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4222DE12C0DBB45002FE47B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E471D00E2C104EF000C33814;
+			remoteInfo = DeviceActivityMonitorExtension;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
+		E471D01B2C104EF000C33814 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				E471D01A2C104EF000C33814 /* DeviceActivityMonitorExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E4FC99312C0E1532003F6328 /* Embed ExtensionKit Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -39,11 +66,13 @@
 		E4222DFC2C0E0B94002FE47B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		E46CC6822C0F029900682A50 /* ScreenTimeApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScreenTimeApp.entitlements; sourceTree = "<group>"; };
 		E46CC6832C0F0DD300682A50 /* MyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyModel.swift; sourceTree = "<group>"; };
-		E4FC99262C0E1532003F6328 /* TotalActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalActivity.swift; sourceTree = "<group>"; };
-		E4FC99282C0E1532003F6328 /* TotalActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalActivityReport.swift; sourceTree = "<group>"; };
-		E4FC992A2C0E1532003F6328 /* TotalActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalActivityView.swift; sourceTree = "<group>"; };
-		E4FC992C2C0E1532003F6328 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E4FC992D2C0E1532003F6328 /* TotalActivity.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TotalActivity.entitlements; sourceTree = "<group>"; };
+		E471D00F2C104EF000C33814 /* DeviceActivityMonitorExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DeviceActivityMonitorExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		E471D0112C104EF000C33814 /* DeviceActivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceActivity.framework; path = System/Library/Frameworks/DeviceActivity.framework; sourceTree = SDKROOT; };
+		E471D0142C104EF000C33814 /* DeviceActivityMonitorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceActivityMonitorExtension.swift; sourceTree = "<group>"; };
+		E471D0162C104EF000C33814 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E471D0172C104EF000C33814 /* DeviceActivityMonitorExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DeviceActivityMonitorExtension.entitlements; sourceTree = "<group>"; };
+		E471D0202C10515600C33814 /* FamilyControlsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyControlsManager.swift; sourceTree = "<group>"; };
+		E471D0222C10567D00C33814 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +83,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E471D00C2C104EF000C33814 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E471D0122C104EF000C33814 /* DeviceActivity.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -61,7 +98,8 @@
 			isa = PBXGroup;
 			children = (
 				E4222DEB2C0DBB45002FE47B /* ScreenTimeApp */,
-				E4FC99252C0E1532003F6328 /* TotalActivity */,
+				E471D0132C104EF000C33814 /* DeviceActivityMonitorExtension */,
+				E471D0102C104EF000C33814 /* Frameworks */,
 				E4222DEA2C0DBB45002FE47B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -70,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				E4222DE92C0DBB45002FE47B /* ScreenTimeApp.app */,
+				E471D00F2C104EF000C33814 /* DeviceActivityMonitorExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -77,6 +116,8 @@
 		E4222DEB2C0DBB45002FE47B /* ScreenTimeApp */ = {
 			isa = PBXGroup;
 			children = (
+				E471D0222C10567D00C33814 /* Info.plist */,
+				E471D01F2C10514100C33814 /* Utils */,
 				E46CC6822C0F029900682A50 /* ScreenTimeApp.entitlements */,
 				E4222DEC2C0DBB45002FE47B /* ScreenTimeAppApp.swift */,
 				E4222DEE2C0DBB45002FE47B /* ContentView.swift */,
@@ -97,16 +138,30 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		E4FC99252C0E1532003F6328 /* TotalActivity */ = {
+		E471D0102C104EF000C33814 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E4FC99262C0E1532003F6328 /* TotalActivity.swift */,
-				E4FC99282C0E1532003F6328 /* TotalActivityReport.swift */,
-				E4FC992A2C0E1532003F6328 /* TotalActivityView.swift */,
-				E4FC992C2C0E1532003F6328 /* Info.plist */,
-				E4FC992D2C0E1532003F6328 /* TotalActivity.entitlements */,
+				E471D0112C104EF000C33814 /* DeviceActivity.framework */,
 			);
-			path = TotalActivity;
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E471D0132C104EF000C33814 /* DeviceActivityMonitorExtension */ = {
+			isa = PBXGroup;
+			children = (
+				E471D0142C104EF000C33814 /* DeviceActivityMonitorExtension.swift */,
+				E471D0162C104EF000C33814 /* Info.plist */,
+				E471D0172C104EF000C33814 /* DeviceActivityMonitorExtension.entitlements */,
+			);
+			path = DeviceActivityMonitorExtension;
+			sourceTree = "<group>";
+		};
+		E471D01F2C10514100C33814 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E471D0202C10515600C33814 /* FamilyControlsManager.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -120,15 +175,34 @@
 				E4222DE62C0DBB45002FE47B /* Frameworks */,
 				E4222DE72C0DBB45002FE47B /* Resources */,
 				E4FC99312C0E1532003F6328 /* Embed ExtensionKit Extensions */,
+				E471D01B2C104EF000C33814 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E471D0192C104EF000C33814 /* PBXTargetDependency */,
 			);
 			name = ScreenTimeApp;
 			productName = ScreenTimeApp;
 			productReference = E4222DE92C0DBB45002FE47B /* ScreenTimeApp.app */;
 			productType = "com.apple.product-type.application";
+		};
+		E471D00E2C104EF000C33814 /* DeviceActivityMonitorExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E471D01E2C104EF000C33814 /* Build configuration list for PBXNativeTarget "DeviceActivityMonitorExtension" */;
+			buildPhases = (
+				E471D00B2C104EF000C33814 /* Sources */,
+				E471D00C2C104EF000C33814 /* Frameworks */,
+				E471D00D2C104EF000C33814 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DeviceActivityMonitorExtension;
+			productName = DeviceActivityMonitorExtension;
+			productReference = E471D00F2C104EF000C33814 /* DeviceActivityMonitorExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -141,6 +215,9 @@
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					E4222DE82C0DBB45002FE47B = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					E471D00E2C104EF000C33814 = {
 						CreatedOnToolsVersion = 15.4;
 					};
 				};
@@ -159,6 +236,7 @@
 			projectRoot = "";
 			targets = (
 				E4222DE82C0DBB45002FE47B /* ScreenTimeApp */,
+				E471D00E2C104EF000C33814 /* DeviceActivityMonitorExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -173,6 +251,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E471D00D2C104EF000C33814 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -180,15 +265,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E471D0232C10581800C33814 /* DeviceActivityMonitorExtension.swift in Sources */,
 				E4222DEF2C0DBB45002FE47B /* ContentView.swift in Sources */,
 				E4222DFD2C0E0B94002FE47B /* MainView.swift in Sources */,
 				E46CC6842C0F0DD300682A50 /* MyModel.swift in Sources */,
 				E4222DFB2C0DFF95002FE47B /* TimePickerView.swift in Sources */,
 				E4222DED2C0DBB45002FE47B /* ScreenTimeAppApp.swift in Sources */,
+				E471D0212C10515600C33814 /* FamilyControlsManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E471D00B2C104EF000C33814 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E471D0242C105C8E00C33814 /* MyModel.swift in Sources */,
+				E471D0152C104EF000C33814 /* DeviceActivityMonitorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E471D0192C104EF000C33814 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E471D00E2C104EF000C33814 /* DeviceActivityMonitorExtension */;
+			targetProxy = E471D0182C104EF000C33814 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		E4222DF52C0DBB47002FE47B /* Debug */ = {
@@ -323,6 +427,7 @@
 				DEVELOPMENT_TEAM = UXC33S4TT6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScreenTimeApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -355,6 +460,7 @@
 				DEVELOPMENT_TEAM = UXC33S4TT6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScreenTimeApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -368,6 +474,60 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = fr.devj2k.ScreenTimeApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E471D01C2C104EF000C33814 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = DeviceActivityMonitorExtension/DeviceActivityMonitorExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UXC33S4TT6;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DeviceActivityMonitorExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DeviceActivityMonitorExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = fr.devj2k.ScreenTimeApp.DeviceActivityMonitorExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E471D01D2C104EF000C33814 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = DeviceActivityMonitorExtension/DeviceActivityMonitorExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UXC33S4TT6;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DeviceActivityMonitorExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DeviceActivityMonitorExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = fr.devj2k.ScreenTimeApp.DeviceActivityMonitorExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -391,6 +551,15 @@
 			buildConfigurations = (
 				E4222DF82C0DBB47002FE47B /* Debug */,
 				E4222DF92C0DBB47002FE47B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E471D01E2C104EF000C33814 /* Build configuration list for PBXNativeTarget "DeviceActivityMonitorExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E471D01C2C104EF000C33814 /* Debug */,
+				E471D01D2C104EF000C33814 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
