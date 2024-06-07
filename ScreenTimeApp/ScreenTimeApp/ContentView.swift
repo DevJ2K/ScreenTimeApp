@@ -45,7 +45,18 @@ struct ContentView: View {
             }
         }
         .onAppear {
-            checkAuthorizationStatus()
+            Task {
+                do {
+                    try await center.requestAuthorization(for: .individual)
+                    print("Status : \(center.authorizationStatus)")
+                    if center.authorizationStatus == .approved {
+                        acceptedScreenTimeAPI = true
+                    }
+                } catch {
+                    print("Failed to enroll Aniyah with error: \(error)")
+                }
+            }
+//            checkAuthorizationStatus()
         }
     }
 }
