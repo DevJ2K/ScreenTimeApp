@@ -29,12 +29,13 @@ struct MainView: View {
     @State private var alertErrorMessage = ""
     @State private var alertErrorTitle = ""
     @State private var showAlert = false
+    @State private var cancelStrictChange = false
     
     @State private var isModeRunning = getBooleanOf(keyName: "isModeRunning")
     
     // Variable du mode strict
     @State private var strictMode = getBooleanOf(keyName: "isInStrictMode")
-    
+    @State private var showingConfirmationStrictMode = false
     // La durée lorsqu'on sélectionne le mode immédiat | Par défaut 0 hrs et 5 mns
     @State private var immediateHours: Int = 0
     @State private var immediateMinutes: Int = 5
@@ -60,7 +61,7 @@ struct MainView: View {
     @StateObject var model = ScreenTimeModel.shared
     
     @State private var appSelectionModal = false
-
+    
     init() {
         UIDatePicker.appearance().minuteInterval = 1
     }
@@ -138,11 +139,21 @@ struct MainView: View {
                             }
                         })
                         .onChange(of: strictMode) { newValue in
-                            saveBooleanOf(keyName: "isInStrictMode", value: strictMode)
-                            let store = ManagedSettingsStore(named: .restricted)
-                            if (strictMode == true && isModeRunning == true) {
-                                store.application.denyAppRemoval = true
+                            if (cancelStrictChange == true) {
+                                cancelStrictChange = false
+                                return
+                            }
+                            if (newValue == false && isModeRunning == true) {
+                                strictMode = true
+                                alertErrorTitle = "Strict Mode"
+                                alertErrorMessage = "Vous ne pouvez pas désactiver le mode strict tant qu'une restriction est activée."
+                                showAlert = true
+                                cancelStrictChange = true
+                            } else if (newValue == true) {
+                                showingConfirmationStrictMode = true
                             } else {
+                                saveBooleanOf(keyName: "isInStrictMode", value: strictMode)
+                                let store = ManagedSettingsStore(named: .restricted)
                                 store.application.denyAppRemoval = false
                             }
                         }
@@ -250,6 +261,22 @@ struct MainView: View {
                 .ignoresSafeArea(.all)
                 .alert(isPresented: $showAlert) {
                     Alert(title: Text(alertErrorTitle), message: Text(alertErrorMessage), dismissButton: .default(Text("Ok")))
+                }
+                .confirmationDialog("Active strict mode", isPresented: $showingConfirmationStrictMode) {
+                    Button("Activer") {
+                        saveBooleanOf(keyName: "isInStrictMode", value: strictMode)
+                        let store = ManagedSettingsStore(named: .restricted)
+                        if (strictMode == true && isModeRunning == true) {
+                            store.application.denyAppRemoval = true
+                        } else {
+                            store.application.denyAppRemoval = false
+                        }
+                    }
+                    Button("Annuler", role: .cancel) {
+                        strictMode = false
+                    }
+                } message: {
+                    Text("Êtes-vous sûr d'activer le mode strict ? Une fois le mode immédiat ou programmée lancé vous ne pourrez désactiver le mode strict.")
                 }
             }
             .background(colorScheme == .light ? .gray.opacity(0.1) : .black)
