@@ -16,12 +16,6 @@ func getBooleanOf(keyName: String) -> Bool {
     return false
 }
 
-func saveBooleanOf(keyName: String, value: Bool) {
-    if let sharedDefaults = UserDefaults(suiteName: appGroup) {
-        sharedDefaults.set(value, forKey: keyName)
-    }
-}
-
 struct MainView: View {
     @State private var selectedMode = "immediate"
     @State private var appsToLock = "0"

@@ -51,6 +51,12 @@ func initSelectionCount() -> StructSelectionCount {
         webDomain: activitySelection.webDomains.count)
 }
 
+func saveBooleanOf(keyName: String, value: Bool) {
+    if let sharedDefaults = UserDefaults(suiteName: appGroup) {
+        sharedDefaults.set(value, forKey: keyName)
+    }
+}
+
 class ScreenTimeModel: ObservableObject {
     static let shared = ScreenTimeModel()
     @Published var selectionCount = initSelectionCount()
@@ -97,6 +103,7 @@ class ScreenTimeModel: ObservableObject {
         deviceActivityCenter.stopMonitoring()
         store.clearAllSettings()
         store.application.denyAppRemoval = false
+        saveBooleanOf(keyName: "isModeRunning", value: false)
         print("Restrictions successfully removed !")
     }
     
