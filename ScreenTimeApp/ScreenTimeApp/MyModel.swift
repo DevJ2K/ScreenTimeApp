@@ -51,6 +51,14 @@ func initSelectionCount() -> StructSelectionCount {
         webDomain: activitySelection.webDomains.count)
 }
 
+func getBooleanOf(keyName: String) -> Bool {
+    if let sharedDefaults = UserDefaults(suiteName: appGroup) {
+        let value = sharedDefaults.bool(forKey: keyName)
+        return value
+    }
+    return false
+}
+
 func saveBooleanOf(keyName: String, value: Bool) {
     if let sharedDefaults = UserDefaults(suiteName: appGroup) {
         sharedDefaults.set(value, forKey: keyName)
@@ -60,6 +68,7 @@ func saveBooleanOf(keyName: String, value: Bool) {
 class ScreenTimeModel: ObservableObject {
     static let shared = ScreenTimeModel()
     @Published var selectionCount = initSelectionCount()
+    @Published var isModeRunning = getBooleanOf(keyName: "isModeRunning")
     
     let store = ManagedSettingsStore(named: .restricted)
     
@@ -104,6 +113,7 @@ class ScreenTimeModel: ObservableObject {
         store.clearAllSettings()
         store.application.denyAppRemoval = false
         saveBooleanOf(keyName: "isModeRunning", value: false)
+        isModeRunning = false
         print("Restrictions successfully removed !")
     }
     
@@ -116,7 +126,8 @@ class ScreenTimeModel: ObservableObject {
         let intervalStartComponents = calendar.dateComponents([.hour, .minute, .second], from: intervalStartDate)
         
         
-        let intervalEndDate = calendar.date(byAdding: .minute, value: ((hours * 60) + minutes), to: now)!
+//        let intervalEndDate = calendar.date(byAdding: .minute, value: ((hours * 60) + minutes), to: now)!
+        let intervalEndDate = calendar.date(byAdding: .second, value: 5, to: now)!
         let intervalEndComponents = calendar.dateComponents([.hour, .minute, .second], from: intervalEndDate)
         
         let schedule = DeviceActivitySchedule(

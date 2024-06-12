@@ -7,18 +7,40 @@
 
 import SwiftUI
 import ManagedSettings
+import Combine
 
-func getBooleanOf(keyName: String) -> Bool {
-    if let sharedDefaults = UserDefaults(suiteName: appGroup) {
-        let value = sharedDefaults.bool(forKey: keyName)
-        return value
+class UserDefaultsObserver: ObservableObject {
+    private let keyName = "isModeRunning"
+
+    @Published var value: Bool = false
+
+    private var cancellable: AnyCancellable?
+
+    init() {
+        if let sharedDefaults = UserDefaults(suiteName: appGroup) {
+            value = sharedDefaults.bool(forKey: keyName)
+        }
+
+        cancellable = NotificationCenter.default.publisher(for: UserDefaults.didChangeNotification)
+            .sink { [weak self] _ in
+                self?.updateValue()
+            }
     }
-    return false
+
+    private func updateValue() {
+        if let sharedDefaults = UserDefaults(suiteName: appGroup) {
+            DispatchQueue.main.async {
+                self.value = sharedDefaults.bool(forKey: self.keyName)
+                print("Value has been updated in UserDefaultsObserver !")
+            }
+        }
+    }
 }
 
 struct MainView: View {
     @State private var selectedMode = "immediate"
     @State private var appsToLock = "0"
+    @StateObject private var userDefaultsObserver = UserDefaultsObserver()
     
     @State private var alertErrorMessage = ""
     @State private var alertErrorTitle = ""
@@ -208,7 +230,7 @@ struct MainView: View {
                 Button {
                     
                     if (isModeRunning) {
-                        if (strictMode == false) {
+                        if (strictMode == true) {
                             model.removeRestrictions()
                             isModeRunning = false
                             saveBooleanOf(keyName: "isModeRunning", value: isModeRunning)
@@ -274,6 +296,11 @@ struct MainView: View {
                 }
             }
             .background(colorScheme == .light ? .gray.opacity(0.1) : .black)
+            .onChange(of: userDefaultsObserver.value) { newValue in
+//                print("Mode changing !")
+                print("New value of isModeRunning : \(newValue)")
+                isModeRunning = getBooleanOf(keyName: "isModeRunning")
+            }
         }
     }
 }
