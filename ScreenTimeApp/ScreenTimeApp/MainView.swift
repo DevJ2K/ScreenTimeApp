@@ -230,7 +230,7 @@ struct MainView: View {
                 Button {
                     
                     if (isModeRunning) {
-                        if (strictMode == true) {
+                        if (strictMode == false || selectedMode == "continuous") {
                             model.removeRestrictions()
                             isModeRunning = false
                             saveBooleanOf(keyName: "isModeRunning", value: isModeRunning)

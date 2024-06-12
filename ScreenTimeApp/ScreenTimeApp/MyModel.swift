@@ -126,8 +126,8 @@ class ScreenTimeModel: ObservableObject {
         let intervalStartComponents = calendar.dateComponents([.hour, .minute, .second], from: intervalStartDate)
         
         
-//        let intervalEndDate = calendar.date(byAdding: .minute, value: ((hours * 60) + minutes), to: now)!
-        let intervalEndDate = calendar.date(byAdding: .second, value: 5, to: now)!
+        let intervalEndDate = calendar.date(byAdding: .minute, value: ((hours * 60) + minutes), to: now)!
+//        let intervalEndDate = calendar.date(byAdding: .second, value: 5, to: now)!
         let intervalEndComponents = calendar.dateComponents([.hour, .minute, .second], from: intervalEndDate)
         
         let schedule = DeviceActivitySchedule(
